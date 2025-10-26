@@ -4,6 +4,7 @@ import StatCard from '../Components/StateCard'
 import logo from "@/public/Frame (1).png"
 import RevenueChart from '../Components/RevenueChart'
 import SubscriberStaticsChart from '../Components/SubscriberStaticsChart'
+import { ChevronDown, TrendingUp } from 'lucide-react'
 export default function page() {
   return (
     <div>
@@ -38,9 +39,28 @@ export default function page() {
         Icon={logo}
       />
     </div>
-    <div className='flex justify-between'>
+    <div className='flex justify-between p-6'>
+      <div className='w-full rounded-2xl border border-gray-200 bg-white p-4 pl-0 shadow-sm'>
+       <div className='pl-4 pt-2 pb-4 flex justify-between items-center'>
+        <div>
 
+        <p className='text-sm font-medium text-[#444950]'>Revenue Statistics</p>
+        <div className='flex gap-2 items-center my-3'> 
+
+        <h1 className='text-xl text-[#151C24] lg:text-2xl pt-1.5 font-bold'>$500k</h1> 
+        <span className="flex items-center gap-2 w-20 border border-[#4CAF50] mt-1 px-2 py-0.5 rounded-full bg-[#f6fcf7]">
+        
+          <span className="text-sm text-[#4CAF50]">10 %</span><TrendingUp className="text-[#4CAF50] w-5" /> 
+                </span>
+        </div>
+        </div>
+         <button className='rounded-2xl px-5 py-2.5 text-[#727a80] flex gap-1 border-2 border-[#bec4c9]'>
+      Year <ChevronDown />
+    </button>
+       </div>
       <RevenueChart/>
+
+      </div>
       <SubscriberStaticsChart/>
     </div>
     </div>

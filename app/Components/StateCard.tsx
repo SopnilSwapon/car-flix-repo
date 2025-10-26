@@ -14,7 +14,6 @@ interface IStatCard {
 const StatCard: React.FC<IStatCard> = ({
   title,
   value,
-  percent,
   period,
   Icon,
 }) => {
