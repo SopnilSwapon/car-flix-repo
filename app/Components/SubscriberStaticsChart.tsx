@@ -1,117 +1,130 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, TooltipContentProps } from 'recharts';
-import { TooltipIndex } from 'recharts/types/state/tooltipSlice';
+"use client";
 
-// #region Sample data
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+type Row = { name: string; value: number; year: number };
+
+const data: Row[] = [
+  { name: "Jan", value: 12, year: 2025 },
+  { name: "Feb", value: 14, year: 2025 },
+  { name: "Mar", value: 22, year: 2025 },
+  { name: "Apr", value: 10, year: 2025 },
+  { name: "May", value: 13, year: 2025 },
+  { name: "Jun", value: 8,  year: 2025 },
+  { name: "Jul", value: 11, year: 2025 },
+  { name: "Aug", value: 20, year: 2025 }, // highlighted in your example
+  { name: "Sep", value: 15, year: 2025 },
+  { name: "Oct", value: 12, year: 2025 },
+  { name: "Nov", value: 9,  year: 2025 },
+  { name: "Dec", value: 13, year: 2025 },
 ];
 
-// #endregion
-const getIntroOfPage = (label: string | number | undefined) => {
-  if (label === 'Page A') {
-    return "Page A is about men's clothing";
+// ---- Custom tooltip (Month + Year + value text) ----
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload?.length) {
+    const row = payload[0].payload as Row;
+    return (
+      <div className="rounded-lg bg-white/95 shadow-md border border-gray-100 px-3 py-2">
+        <div className="text-sm font-semibold text-gray-800">
+          {label} {row.year}
+        </div>
+        <div className="text-sm text-gray-500">
+          This Month : <span className="text-blue-600 font-medium">{row.value} Subscription</span>
+        </div>
+      </div>
+    );
   }
-  if (label === 'Page B') {
-    return "Page B is about women's dress";
-  }
-  if (label === 'Page C') {
-    return "Page C is about women's bag";
-  }
-  if (label === 'Page D') {
-    return 'Page D is about household goods';
-  }
-  if (label === 'Page E') {
-    return 'Page E is about food';
-  }
-  if (label === 'Page F') {
-    return 'Page F is about baby food';
-  }
-  return '';
+  return null;
 };
 
-const CustomTooltip = ({ active, payload, label }: TooltipContentProps<string | number, string>) => {
-  const isVisible = active && payload && payload.length;
+// ---- Active bar shape: blue bar + behind it a soft blue strip (from bar top to x-axis only) ----
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ActiveBarShape = (props: any) => {
+  const { x, y, width, height } = props;
+  const barRadius = 10;
+  const glowWidth = Math.max(width, width); // a bit wider than the bar
+
+  const glowX = x + width / 2 - glowWidth / 2;
+  const glowY = y;                 // start at bar top
+  const glowH = height;            // end at x-axis (no overflow)
+
   return (
-    <div className="custom-tooltip" style={{ visibility: isVisible ? 'visible' : 'hidden' }}>
-      {isVisible && (
-        <>
-          <p className="label">{`${label} : ${payload[0].value}`}</p>
-          <p className="intro">{getIntroOfPage(label)}</p>
-          <p className="desc">Anything you want can be displayed here.</p>
-        </>
-      )}
+    <g>
+      {/* soft vertical strip behind the active bar */}
+      <rect
+        x={glowX}
+        y={glowY}
+        width={glowWidth}
+        height={glowH}
+        rx={barRadius}
+        fill="url(#barGlow)"
+      />
+      {/* actual active bar */}
+      <rect
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        rx={barRadius}
+        fill="url(#barFill)"
+      />
+    </g>
+  );
+};
+
+export default function SubscribersBar() {
+  const CHART_HEIGHT = 260;
+
+  return (
+    <div className="w-full">
+      <ResponsiveContainer width="100%" height={CHART_HEIGHT}>
+        <BarChart
+          data={data}
+          margin={{ top: 16, right: 16, left: 8, bottom: 12 }}
+        >
+          {/* Gradients (one for the bar fill, one for the soft strip) */}
+          <defs>
+            {/* deep blue bar */}
+            <linearGradient id="barFill" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stopColor="#0B4CFF" />
+              <stop offset="100%" stopColor="#2B6BFF" />
+            </linearGradient>
+            {/* soft blue vertical strip */}
+            <linearGradient id="barGlow" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stopColor="rgba(56,97,251,0.18)" />
+              <stop offset="100%" stopColor="rgba(56,97,251,0.06)" />
+            </linearGradient>
+          </defs>
+
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="name" tickLine={false} axisLine={{ stroke: "#E5E7EB" }} />
+          <YAxis
+            tickLine={false}
+            axisLine={{ stroke: "#E5E7EB" }}
+            tickFormatter={(v) => `${v}`}
+          />
+          <Tooltip cursor={false} content={<CustomTooltip />} />
+
+          {/* Default bars = light grey; on hover, use our ActiveBarShape */}
+          <Bar
+            dataKey="value"
+            barSize={28}
+            radius={[10, 10, 10, 10]}
+            fill="rgba(56,97,251,0.15)"   // pale bars like your screenshot
+            activeBar={<ActiveBarShape />}
+            isAnimationActive={false}
+          />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   );
-};
-
-const CustomContentOfTooltip = ({
-  isAnimationActive = true,
-  defaultIndex,
-}: {
-  isAnimationActive?: boolean;
-  defaultIndex?: TooltipIndex;
-}) => {
-  return (
-    <BarChart
-      style={{ width: '100%', maxWidth: '300px', maxHeight: '70vh', aspectRatio: 1.618 }}
-      responsive
-      data={data}
-      margin={{
-        top: 5,
-        right: 0,
-        left: 0,
-        bottom: 0,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis width="auto" />
-      <Tooltip content={CustomTooltip} isAnimationActive={isAnimationActive} defaultIndex={defaultIndex} />
-      <Legend />
-      <Bar dataKey="pv" barSize={20} fill="#8884d8" isAnimationActive={isAnimationActive} />
-    </BarChart>
-  );
-};
-
-export default CustomContentOfTooltip;
+}
