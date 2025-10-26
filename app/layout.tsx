@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto, } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "./Provider/QueryProvider";
+import Sidebar from "./Components/Sidebar";
+import TopBar from "./Components/TopBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,9 +32,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} antialiased max-w-[1320px] mx-auto`}
       >
-           <QueryProvider>{children}</QueryProvider>
+           <QueryProvider>
+            <div className="flex">
+
+            <Sidebar/>
+            <div className="w-full">
+            <TopBar/>
+            <div className="border-r min-h-[calc(100vh-70px)] border-[#E9E9E9]">
+            {children}
+            </div>
+            </div>
+            </div>
+            </QueryProvider>
 
       </body>
     </html>

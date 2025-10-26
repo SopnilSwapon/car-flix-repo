@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type LoginFormInputs = {
   email: string;
@@ -11,7 +12,7 @@ type LoginFormInputs = {
 
 export default function LoginForm() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-
+  const router = useRouter();
   // React Hook Form
   const {
     register,
@@ -52,20 +53,22 @@ export default function LoginForm() {
   });
 
   const onSubmit = (data: LoginFormInputs) => {
-    mutation.mutate(data);
+    console.log("hello")
+    router.push("/dashboard")
+    // mutation.mutate(data);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4" >
+    <div className="min-h-screen flex items-center justify-center p-4" >
 
       <form
            onSubmit={handleSubmit(onSubmit)}
-           className="flex-1 flex flex-col gap-4 bg-white/10 p-6 sm:8 lg:p-10 max-w-2xl mx-auto rounded-2xl backdrop-blur-md"
+           className="flex-1 flex flex-col gap-4 bg-foreground shadow-2xl shadow-blue-200 border border-white p-6 sm:8 lg:p-10 max-w-2xl mx-auto rounded-2xl backdrop-blur-md"
          >
-           <h3 className="text-white text-xl lg:text-3xl font-semibold">
+           <h3 className=" text-xl lg:text-3xl font-semibold">
               Login to Your Account
            </h3>
-           <label className="mt-2 text-white">
+           <label className="mt-2 ">
              Email Address<span className="text-red-700">*</span>
            </label>
            <input
@@ -77,7 +80,7 @@ export default function LoginForm() {
            {errors.email && (
              <p className="text-red-500 text-sm">{errors.email.message}</p>
            )}
-           <label className="mt-2 text-white">
+           <label className="mt-2 ">
              Password<span className="text-red-700">*</span>
            </label>
            <input
@@ -85,23 +88,23 @@ export default function LoginForm() {
              placeholder="Enter Your Password"
              {...register("password", {
                required: "Password is required",
-               pattern: {
-                 value: /\S+@\S+\.\S+/,
-                 message: "Enter a valid email",
-               },
+              //  pattern: {
+              //    value: /\S+@\S+\.\S+/,
+              //    message: "Enter a valid email",
+              //  },
              })}
              className="p-3 rounded-md border border-white/30 bg-white text-black placeholder-[#A4ABB8] focus:outline-none focus:ring-2 focus:ring-orange-500"
            />
-           {errors.email && (
-             <p className="text-red-500 text-sm">{errors.email.message}</p>
+           {errors.password && (
+             <p className="text-red-500 text-sm">{errors.password.message}</p>
            )}
  
            <button
              type="submit"
              disabled={isSubmitting}
-             className="bg-text-secondary mt-2 cursor-pointer hover:bg-orange-600 disabled:opacity-60 text-white font-semibold py-3 rounded-md transition"
+             className="text-secondary mt-2 cursor-pointer bg-secondary hover:bg-blue-700!  font-semibold py-3 rounded-md transition"
            >
-             {isSubmitting ? "Sending..." : "Send Message"}
+             {isSubmitting ? "Logging..." : "Login"}
            </button>
  
            {/* {serverMsg && (
