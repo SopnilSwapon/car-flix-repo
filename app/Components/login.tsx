@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -14,9 +14,9 @@ export default function LoginForm() {
 
   // React Hook Form
   const {
-    control,
+    register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors, isSubmitting}
   } = useForm<LoginFormInputs>({
     defaultValues: {
       email: "",
@@ -56,74 +56,60 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="max-w-sm mx-auto mt-10 p-6 border rounded-2xl shadow-md bg-white">
-      <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4" >
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        {/* Email */}
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="email">
-            Email
-          </label>
-          <Controller
-            name="email"
-            control={control}
-            rules={{ required: "Email is required" }}
-            render={({ field }) => (
-              <input
-                {...field}
-                id="email"
-                type="email"
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
-                placeholder="you@example.com"
-              />
-            )}
-          />
-          {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-          )}
-        </div>
+      <form
+           onSubmit={handleSubmit(onSubmit)}
+           className="flex-1 flex flex-col gap-4 bg-white/10 p-6 sm:8 lg:p-10 max-w-2xl mx-auto rounded-2xl backdrop-blur-md"
+         >
+           <h3 className="text-white text-xl lg:text-3xl font-semibold">
+              Login to Your Account
+           </h3>
+           <label className="mt-2 text-white">
+             Email Address<span className="text-red-700">*</span>
+           </label>
+           <input
+             type="email"
+             placeholder="Enter Your Email"
+             {...register("email", { required: "Email is required" })}
+             className="p-3 rounded-md border border-white/30 bg-white text-black placeholder-[#A4ABB8] focus:outline-none focus:ring-2 focus:ring-orange-500"
+           />
+           {errors.email && (
+             <p className="text-red-500 text-sm">{errors.email.message}</p>
+           )}
+           <label className="mt-2 text-white">
+             Password<span className="text-red-700">*</span>
+           </label>
+           <input
+             type="password"
+             placeholder="Enter Your Password"
+             {...register("password", {
+               required: "Password is required",
+               pattern: {
+                 value: /\S+@\S+\.\S+/,
+                 message: "Enter a valid email",
+               },
+             })}
+             className="p-3 rounded-md border border-white/30 bg-white text-black placeholder-[#A4ABB8] focus:outline-none focus:ring-2 focus:ring-orange-500"
+           />
+           {errors.email && (
+             <p className="text-red-500 text-sm">{errors.email.message}</p>
+           )}
+ 
+           <button
+             type="submit"
+             disabled={isSubmitting}
+             className="bg-text-secondary mt-2 cursor-pointer hover:bg-orange-600 disabled:opacity-60 text-white font-semibold py-3 rounded-md transition"
+           >
+             {isSubmitting ? "Sending..." : "Send Message"}
+           </button>
+ 
+           {/* {serverMsg && (
+             <p className={serverMsg.ok ? "text-green-200" : "text-red-200"}>
+               {serverMsg.text}
+             </p>
+           )} */}
+         </form>
 
-        {/* Password */}
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="password">
-            Password
-          </label>
-          <Controller
-            name="password"
-            control={control}
-            rules={{ required: "Password is required" }}
-            render={({ field }) => (
-              <input
-                {...field}
-                id="password"
-                type="password"
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
-                placeholder="••••••••"
-              />
-            )}
-          />
-          {errors.password && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.password.message}
-            </p>
-          )}
-        </div>
-
-        {/* Error Message */}
-        {errorMsg && (
-          <p className="text-red-500 text-sm text-center">{errorMsg}</p>
-        )}
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={mutation.isPending}
-          className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
-        >
-          {mutation.isPending ? "Logging in..." : "Login"}
-        </button>
-      </form>
-    </div>
-  );
+    </div>   );
 }
