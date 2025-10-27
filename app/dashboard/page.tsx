@@ -40,7 +40,8 @@ export default function page() {
         />
       </div>
       <div className="flex justify-between gap-4 p-6">
-        <div className="w-full rounded-2xl border border-gray-200 bg-white p-4 pl-0 shadow-sm">
+        {/* Revenue Chart */}
+        <div className="w-full rounded-xl border border-gray-200 bg-white p-4 pl-0 shadow-sm">
           <div className="pl-4 pt-2 pb-4 flex justify-between items-center">
             <div>
               <p className="text-sm font-medium text-[#444950]">
@@ -56,13 +57,14 @@ export default function page() {
                 </span>
               </div>
             </div>
-            <button className="rounded-2xl px-5 py-2.5 text-[#727a80] flex gap-1 border-2 border-[#bec4c9]">
+            <button className="rounded-lg px-5 py-2.5 text-[#727a80] flex gap-1 border-2 border-gray-200">
               Year <ChevronDown />
             </button>
           </div>
           <RevenueChart />
         </div>
-        <div className="w-full rounded-2xl border border-gray-200 bg-white p-4 pl-0 shadow-sm">
+        {/* Subscriber statics chart */}
+        <div className="w-full rounded-xl border border-gray-200 bg-white p-4 pl-0 shadow-sm">
           <div className="pl-4 pt-2 pb-4 flex justify-between items-center">
             <div>
               <p className="text-sm font-medium text-[#444950]">
@@ -78,7 +80,7 @@ export default function page() {
                 </span>
               </div>
             </div>
-            <button className="rounded-2xl px-5 py-2.5 text-[#727a80] flex gap-1 border-2 border-[#bec4c9]">
+            <button className="rounded-lg px-5 py-2.5 text-[#727a80] flex gap-1 border-2 border-gray-200">
               Year <ChevronDown />
             </button>
           </div>
