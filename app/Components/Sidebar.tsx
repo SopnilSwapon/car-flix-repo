@@ -30,7 +30,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Manage Booking",
-    href: "/bookings",
+    href: "/manage-booking",
     icon: (p) => <ClipboardList {...p} />,
   },
   {

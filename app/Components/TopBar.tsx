@@ -1,5 +1,4 @@
 import { Bell, User } from "lucide-react";
-import React from "react";
 
 export default function TopBar() {
   return (
