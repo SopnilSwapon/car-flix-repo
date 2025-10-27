@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "./Provider/QueryProvider";
 import Sidebar from "./Components/Sidebar";
 import TopBar from "./Components/TopBar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
 const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
@@ -34,9 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} antialiased max-w-[1420px] mx-auto`}
-      >
+      <body className={`${roboto.variable} antialiased max-w-[1420px] mx-auto`}>
         <QueryProvider>
           <div>
             <Sidebar />

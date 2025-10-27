@@ -4,7 +4,7 @@ import logo from "@/public/Frame (1).png";
 import RevenueChart from "../Components/dashboard/RevenueChart";
 import SubscriberStaticsChart from "../Components/dashboard/SubscriberStaticsChart";
 import { ChevronDown, TrendingUp } from "lucide-react";
-import RecendOrder from "../Components/dashboard/RecendOrder";
+import RecendOrder from "../Components/dashboard/RecentOrder";
 import StatCard from "../Components/dashboard/StateCard";
 export default function page() {
   return (

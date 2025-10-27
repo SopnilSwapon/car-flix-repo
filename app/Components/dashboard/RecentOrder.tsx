@@ -52,7 +52,7 @@ const invoices = [
     paymentMethod: "Credit Card",
   },
 ];
-export default function RecendOrder() {
+export default function RecentOrder() {
   return (
     <div className="w-full rounded-xl border border-gray-200 bg-white p-4 shadow-sm flex flex-col justify-between">
       <div className="flex items-center pt-0 pb-4 justify-between">
@@ -90,7 +90,7 @@ export default function RecendOrder() {
                   variant="outline"
                   className="text-secondary px-4 font-normal"
                 >
-                  Accept
+                  Reject
                 </Button>
                 <Button
                   size="sm"
