@@ -1,4 +1,3 @@
-
 "use client";
 
 import {
@@ -48,7 +47,14 @@ function ActiveDot({
         rx={6}
         fill="url(#hoverGradient)"
       />
-      <circle cx={cx} cy={cy} r={r} fill="#fff" stroke="#3861FB" strokeWidth={2} />
+      <circle
+        cx={cx}
+        cy={cy}
+        r={r}
+        fill="#fff"
+        stroke="#3861FB"
+        strokeWidth={2}
+      />
     </g>
   );
 }
@@ -64,9 +70,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
           {label} {year}
         </p>
         <p>
-          <span className="text-blue-600 font-medium">
-            ${payload[0].value}
-          </span>{" "}
+          <span className="text-blue-600 font-medium">${payload[0].value}</span>{" "}
           <span className="text-gray-500">This Month</span>
         </p>
       </div>
@@ -96,19 +100,22 @@ export default function RevenueChart() {
   const CHART_BOTTOM = CHART_HEIGHT - MARGIN.bottom;
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <ResponsiveContainer width="100%" height={CHART_HEIGHT}>
         <LineChart data={data} margin={MARGIN}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis tickFormatter={(v: number) => `$${v}`} />
+          <XAxis className="font-normal text-[10px]" dataKey="name" />
+          <YAxis
+            className="font-normal text-[10px]"
+            tickFormatter={(v: number) => `$${v}`}
+          />
           <Tooltip cursor={false} content={<CustomTooltip />} />
           <Line
             type="monotone"
             dataKey="uv"
             stroke="#3861FB"
-            strokeWidth={3}
-            dot={{ r: 3 }}
+            strokeWidth={2}
+            dot={{ r: 2 }}
             activeDot={<ActiveDot chartBottom={CHART_BOTTOM} stripWidth={26} />}
             isAnimationActive={false}
           />

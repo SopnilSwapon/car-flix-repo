@@ -4,7 +4,6 @@ import {
   BarChart,
   Bar,
   XAxis,
-  YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
@@ -18,12 +17,12 @@ const data: Row[] = [
   { name: "Mar", value: 22, year: 2025 },
   { name: "Apr", value: 10, year: 2025 },
   { name: "May", value: 13, year: 2025 },
-  { name: "Jun", value: 8,  year: 2025 },
+  { name: "Jun", value: 8, year: 2025 },
   { name: "Jul", value: 11, year: 2025 },
   { name: "Aug", value: 20, year: 2025 }, // highlighted in your example
   { name: "Sep", value: 15, year: 2025 },
   { name: "Oct", value: 12, year: 2025 },
-  { name: "Nov", value: 9,  year: 2025 },
+  { name: "Nov", value: 9, year: 2025 },
   { name: "Dec", value: 13, year: 2025 },
 ];
 
@@ -38,7 +37,10 @@ const CustomTooltip = ({ active, payload, label }: any) => {
           {label} {row.year}
         </div>
         <div className="text-sm text-gray-500">
-          This Month : <span className="text-blue-600 font-medium">{row.value} Subscription</span>
+          This Month :{" "}
+          <span className="text-blue-600 font-medium">
+            {row.value} Subscription
+          </span>
         </div>
       </div>
     );
@@ -54,8 +56,8 @@ const ActiveBarShape = (props: any) => {
   const glowWidth = Math.max(width, width); // a bit wider than the bar
 
   const glowX = x + width / 2 - glowWidth / 2;
-  const glowY = y;                 // start at bar top
-  const glowH = height;            // end at x-axis (no overflow)
+  const glowY = y; // start at bar top
+  const glowH = height; // end at x-axis (no overflow)
 
   return (
     <g>
@@ -106,11 +108,11 @@ export default function SubscribersBar() {
           </defs>
 
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="name" tickLine={false} axisLine={{ stroke: "#E5E7EB" }} />
-          <YAxis
+          <XAxis
+            dataKey="name"
+            className="font-normal text-[10px]"
             tickLine={false}
             axisLine={{ stroke: "#E5E7EB" }}
-            tickFormatter={(v) => `${v}`}
           />
           <Tooltip cursor={false} content={<CustomTooltip />} />
 
@@ -119,7 +121,7 @@ export default function SubscribersBar() {
             dataKey="value"
             barSize={28}
             radius={[10, 10, 10, 10]}
-            fill="rgba(56,97,251,0.15)"   // pale bars like your screenshot
+            fill="rgba(56,97,251,0.15)" // pale bars like your screenshot
             activeBar={<ActiveBarShape />}
             isAnimationActive={false}
           />

@@ -11,7 +11,13 @@ interface IStatCard {
   Icon: StaticImageData;
 }
 
-const StatCard: React.FC<IStatCard> = ({ title, value, period, Icon }) => {
+const StatCard: React.FC<IStatCard> = ({
+  title,
+  value,
+  period,
+  Icon,
+  percent,
+}) => {
   return (
     <div className="w-full rounded-xl border border-gray-200 bg-white p-5 shadow-sm flex flex-col justify-between">
       {/* Top Section */}
@@ -29,7 +35,7 @@ const StatCard: React.FC<IStatCard> = ({ title, value, period, Icon }) => {
         <div className="text-sm flex justify-start items-end flex-col w-full">
           <div className="flex gap-2 mb-1">
             <TrendingUp className="text-[#4CAF50]" />{" "}
-            <span className="text-[16px]">6 %</span>
+            <span className="text-[16px]">{percent} %</span>
           </div>
           {period && <p className="text-gray-500">{period}</p>}
         </div>

@@ -12,7 +12,7 @@ export default function page() {
       <div className="py-6 mx-6 flex gap-4">
         <StatCard
           title="Total subscription"
-          value={20}
+          value={20000}
           percent={6}
           period="Last Month"
           Icon={logo}
@@ -20,21 +20,21 @@ export default function page() {
         <StatCard
           title="On Going Work"
           value={20}
-          percent={6}
+          percent={16}
           period="Last Month"
           Icon={logo}
         />
         <StatCard
           title="Revenue"
-          value={20}
-          percent={6}
+          value={40}
+          percent={9}
           period="Last Month"
           Icon={logo}
         />
         <StatCard
           title="Social Request"
-          value={20}
-          percent={6}
+          value={40000}
+          percent={16}
           period="Last Month"
           Icon={logo}
         />
