@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "./Provider/QueryProvider";
-import Sidebar from "./Components/Sidebar";
-import TopBar from "./Components/TopBar";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -24,17 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.variable} antialiased max-w-[1420px] mx-auto`}>
-        <QueryProvider>
-          <div>
-            <Sidebar />
-            <TopBar />
-            <div className="pl-0 lg:pl-[280px] pt-17">
-              <div className="border-r min-h-[calc(100vh-70px)] p-4 md:p-5 lg:p-6 relative border-[#E9E9E9]">
-                {children}
-              </div>
-            </div>
-          </div>
-        </QueryProvider>
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

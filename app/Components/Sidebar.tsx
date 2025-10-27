@@ -25,17 +25,17 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   {
     label: "Dashboard",
-    href: "/dashboard",
+    href: "/user/dashboard",
     icon: (p) => <LayoutDashboard {...p} />,
   },
   {
     label: "Manage Booking",
-    href: "/manage-booking",
+    href: "/user/manage-booking",
     icon: (p) => <ClipboardList {...p} />,
   },
   {
     label: "Schedule Calendar",
-    href: "/schedule",
+    href: "/user/schedule",
     icon: (p) => <CalendarClock {...p} />,
   },
   { label: "Blog", href: "/blog", icon: (p) => <PenSquare {...p} /> },

@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import logo from "@/public/Frame (1).png";
-import RevenueChart from "../Components/dashboard/RevenueChart";
-import SubscriberStaticsChart from "../Components/dashboard/SubscriberStaticsChart";
 import { ChevronDown, TrendingUp } from "lucide-react";
-import RecendOrder from "../Components/dashboard/RecentOrder";
-import StatCard from "../Components/dashboard/StateCard";
+import StatCard from "@/app/Components/dashboard/StateCard";
+import RecentOrder from "@/app/Components/dashboard/RecentOrder";
+import RevenueChart from "@/app/Components/dashboard/RevenueChart";
+import SubscriberStaticsChart from "@/app/Components/dashboard/SubscriberStaticsChart";
 export default function page() {
   return (
     <div>
@@ -90,7 +90,7 @@ export default function page() {
         </div>
       </div>
       <div className="pt-4 md:pt-5 lg:pt-6">
-        <RecendOrder />
+        <RecentOrder />
       </div>
     </div>
   );
