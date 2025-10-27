@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto, } from "next/font/google";
+import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "./Provider/QueryProvider";
 import Sidebar from "./Components/Sidebar";
@@ -8,16 +8,19 @@ import TopBar from "./Components/TopBar";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
-})
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -34,19 +37,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} antialiased max-w-[1320px] mx-auto`}
       >
-           <QueryProvider>
-            <div className="flex">
-
-            <Sidebar/>
+        <QueryProvider>
+          <div className="flex">
+            <Sidebar />
             <div className="w-full">
-            <TopBar/>
-            <div className="border-r min-h-[calc(100vh-70px)] border-[#E9E9E9]">
-            {children}
+              <TopBar />
+              <div className="border-r min-h-[calc(100vh-70px)] border-[#E9E9E9]">
+                {children}
+              </div>
             </div>
-            </div>
-            </div>
-            </QueryProvider>
-
+          </div>
+        </QueryProvider>
       </body>
     </html>
   );
