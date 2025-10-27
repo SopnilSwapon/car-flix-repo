@@ -4,7 +4,7 @@ import React from "react";
 export default function TopBar() {
   return (
     <header
-      className="h-[70px] max-w-[1283px] mx-auto w-full fixed a z-20 border-b border-r border-[#E9E9E9] bg-white/10 backdrop-blur-md
+      className="h-[70px] max-w-[1420px] mx-auto w-full fixed a z-20 border-b border-r border-[#E9E9E9] bg-white/10 backdrop-blur-md
                  flex justify-end px-8"
     >
       {/* Right side */}
