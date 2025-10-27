@@ -38,11 +38,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} antialiased max-w-[1320px] mx-auto`}
       >
         <QueryProvider>
-          <div className="flex">
+          <div>
             <Sidebar />
-            <div className="w-full">
-              <TopBar />
-              <div className="border-r min-h-[calc(100vh-70px)] border-[#E9E9E9]">
+            <TopBar />
+            <div className="pl-0 lg:pl-[280px] pt-17">
+              <div className="border-r min-h-[calc(100vh-70px)] relative border-[#E9E9E9]">
                 {children}
               </div>
             </div>

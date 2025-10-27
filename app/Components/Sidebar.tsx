@@ -9,8 +9,12 @@ import {
   ClipboardList,
   CalendarClock,
   PenSquare,
+  Menu,
 } from "lucide-react";
-import logo from "@/public/Logo.png"
+import logo from "@/public/Logo.png";
+
+// shadcn
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 type NavItem = {
   label: string;
@@ -19,23 +23,29 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Dashboard",        href: "/dashboard",        icon: (p) => <LayoutDashboard {...p} /> },
-  { label: "Manage Booking",   href: "/bookings",         icon: (p) => <ClipboardList {...p} /> },
-  { label: "Schedule Calendar",href: "/schedule",         icon: (p) => <CalendarClock {...p} /> },
-  { label: "Blog",             href: "/blog",             icon: (p) => <PenSquare {...p} /> },
+  {
+    label: "Dashboard",
+    href: "/dashboard",
+    icon: (p) => <LayoutDashboard {...p} />,
+  },
+  {
+    label: "Manage Booking",
+    href: "/bookings",
+    icon: (p) => <ClipboardList {...p} />,
+  },
+  {
+    label: "Schedule Calendar",
+    href: "/schedule",
+    icon: (p) => <CalendarClock {...p} />,
+  },
+  { label: "Blog", href: "/blog", icon: (p) => <PenSquare {...p} /> },
 ];
 
-export default function Sidebar() {
-  const pathname = usePathname();
-
+function SidebarInner({ pathname }: { pathname: string | null }) {
   return (
-    <aside
-      className="w-[280px] min-h-screen bg-foreground border-r border-[#E9E9E9]
-                 sticky top-0 flex flex-col"
-    >
+    <>
       {/* Header / Logo */}
       <div className="flex items-center gap-3 px-6 py-5 border-b border-white/10">
-        {/* Replace /logo.svg with your logo path */}
         <Image
           src={logo}
           alt="Logo"
@@ -66,12 +76,16 @@ export default function Sidebar() {
               aria-current={active ? "page" : undefined}
             >
               <span className="shrink-0">
-                {item.icon({
-                  className: [
-                    "h-5 w-5 transition",
-                    active ? "opacity-100" : "opacity-90 group-hover:opacity-100",
-                  ].join(" "),
-                }) as ReactNode}
+                {
+                  item.icon({
+                    className: [
+                      "h-5 w-5 transition",
+                      active
+                        ? "opacity-100"
+                        : "opacity-90 group-hover:opacity-100",
+                    ].join(" "),
+                  }) as ReactNode
+                }
               </span>
               <span className="text-sm font-medium">{item.label}</span>
             </Link>
@@ -79,10 +93,46 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Optional footer / version / user */}
+      {/* Footer */}
       <div className="mt-auto px-6 py-4 text-xs text-white/60 border-t border-white/10">
         © {new Date().getFullYear()} Your Brand
       </div>
-    </aside>
+    </>
+  );
+}
+
+export default function Sidebar() {
+  const pathname = usePathname();
+
+  return (
+    <>
+      {/* Mobile: Drawer trigger + drawer content */}
+      <div className="lg:hidden">
+        <Sheet>
+          <SheetTrigger
+            aria-label="Open menu"
+            className="fixed left-4 top-4 z-50 inline-flex items-center justify-center rounded-md border border-[#E9E9E9] bg-white/70 backdrop-blur px-2.5 py-2 text-black/80"
+          >
+            <Menu className="h-5 w-5" />
+          </SheetTrigger>
+          <SheetContent
+            side="left"
+            className="p-0 w-[280px] bg-foreground border-r border-[#E9E9E9] overflow-hidden"
+          >
+            <div className="flex min-h-screen flex-col">
+              <SidebarInner pathname={pathname} />
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
+
+      {/* Desktop: Original fixed sidebar (unchanged UI) */}
+      <aside
+        className="hidden lg:flex w-[280px] fixed min-h-screen bg-foreground border-r border-[#E9E9E9]
+                    top-0 flex-col z-50"
+      >
+        <SidebarInner pathname={pathname} />
+      </aside>
+    </>
   );
 }

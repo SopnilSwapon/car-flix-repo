@@ -9,7 +9,8 @@ import StatCard from "../Components/dashboard/StateCard";
 export default function page() {
   return (
     <div>
-      <div className="py-6 mx-6 flex gap-4">
+      {/* Statistics Cards */}
+      <div className="py-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4">
         <StatCard
           title="Total subscription"
           value={20000}
@@ -39,7 +40,8 @@ export default function page() {
           Icon={logo}
         />
       </div>
-      <div className="flex justify-between gap-4 p-6">
+      {/* Charts */}
+      <div className="flex lg:flex-row flex-col justify-between gap-4 p-6">
         {/* Revenue Chart */}
         <div className="w-full rounded-xl border border-gray-200 bg-white p-4 pl-0 shadow-sm">
           <div className="pl-4 pt-2 pb-4 flex justify-between items-center">

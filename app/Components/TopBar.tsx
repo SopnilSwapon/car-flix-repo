@@ -1,17 +1,12 @@
-
 import { Bell, User } from "lucide-react";
 import React from "react";
 
 export default function TopBar() {
   return (
-
     <header
-      className="w-full h-[70px] border-b border-r border-[#E9E9E9] bg-white/10 backdrop-blur-md
-                 flex items-center justify-between px-8"
+      className="h-[70px] max-w-[1283px] mx-auto w-full fixed a z-20 border-b border-r border-[#E9E9E9] bg-white/10 backdrop-blur-md
+                 flex justify-end px-8"
     >
-      {/* Left side (empty or logo/title if needed later) */}
-      <div />
-
       {/* Right side */}
       <div className="flex items-center gap-6">
         {/* Notification Icon */}
@@ -33,4 +28,3 @@ export default function TopBar() {
     </header>
   );
 }
-

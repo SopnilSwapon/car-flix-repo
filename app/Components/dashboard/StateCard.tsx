@@ -19,7 +19,7 @@ const StatCard: React.FC<IStatCard> = ({
   percent,
 }) => {
   return (
-    <div className="w-full rounded-xl border border-gray-200 bg-white p-5 shadow-sm flex flex-col justify-between">
+    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm flex flex-col justify-between">
       {/* Top Section */}
       <div className="flex items-center gap-2">
         <div className="p-2 rounded-full bg-indigo-50 text-indigo-600">
