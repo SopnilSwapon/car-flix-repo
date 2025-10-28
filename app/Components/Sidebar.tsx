@@ -38,7 +38,7 @@ const NAV_ITEMS: NavItem[] = [
     href: "/user/schedule-calender",
     icon: (p) => <CalendarClock {...p} />,
   },
-  { label: "Blog", href: "/blog", icon: (p) => <PenSquare {...p} /> },
+  { label: "Blog", href: "/user/blog", icon: (p) => <PenSquare {...p} /> },
 ];
 
 function SidebarInner({ pathname }: { pathname: string | null }) {

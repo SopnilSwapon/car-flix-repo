@@ -217,8 +217,6 @@ export default function ScheduleCalendar({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [weekStart.getTime(), weekEnd.getTime(), JSON.stringify(events)]);
 
-  const totalMinutes = (END_HOUR - START_HOUR) * 60;
-
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
       {/* Header */}
@@ -228,7 +226,7 @@ export default function ScheduleCalendar({
         <div className="flex items-center gap-3">
           {/* Filter (fake) */}
           <Select defaultValue="all">
-            <SelectTrigger className="w-[160px]">
+            <SelectTrigger className="w-40">
               <SelectValue placeholder="All Schedule" />
             </SelectTrigger>
             <SelectContent>
