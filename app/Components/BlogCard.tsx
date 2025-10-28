@@ -1,16 +1,11 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import { useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreVertical, Pencil, Trash2, Plus } from "lucide-react";
+import { Edit, MoreVerticalIcon, Trash2 } from "lucide-react";
 
 // ----- Types -----
 export type Blog = {
@@ -35,8 +30,6 @@ function formatDate(input: string | Date) {
 // ----- Card Component -----
 function Blog({
   blog,
-  onEdit,
-  onDelete,
 }: {
   blog: Blog;
   onEdit?: (id: string) => void;
@@ -45,45 +38,42 @@ function Blog({
   const created = useMemo(() => formatDate(blog.createdAt), [blog.createdAt]);
 
   return (
-    <Card className="group relative overflow-hidden border-muted-foreground/10 hover:shadow-sm transition-shadow">
+    <Card className="group relative border-none p-3">
       {/* Image */}
       <div className="relative aspect-16/11 w-full overflow-hidden">
         <Image
           src={blog.imageUrl}
           alt={blog.title}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+          className="object-cover rounded-xl"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority={false}
         />
-
-        {/* Action menu (kebab) */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              size="icon"
-              variant="secondary"
-              className="absolute left-3 top-3 h-9 w-9 rounded-xl bg-white/90 backdrop-blur-md shadow hover:bg-white"
-            >
-              <MoreVertical className="h-4 w-4" />
+        <Button
+          size="lg"
+          className="absolute right-6 top-3 hidden group-hover:flex rounded-xl font-bold text-white"
+        >
+          <MoreVerticalIcon className="text-7xl" />
+        </Button>
+        <div className="hidden group-hover:flex absolute right-3 top-14 ">
+          <div className="rounded-xl bg-white/90 p-3 backdrop-blur-md shadow">
+            <Button size="icon" className="h-9 w-9 block cursor-pointer">
+              <span className="flex items-center gap-2">
+                <Edit className="h-14 w-14" /> Edit
+              </span>
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-40">
-            <DropdownMenuItem onClick={() => onEdit?.(blog.id)}>
-              <Pencil className="mr-2 h-4 w-4" /> Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="text-destructive focus:text-destructive"
-              onClick={() => onDelete?.(blog.id)}
-            >
-              <Trash2 className="mr-2 h-4 w-4" /> Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            <hr className="border border-gray-200" />
+            <Button size="icon" className="h-9 w-20 block cursor-pointer">
+              <span className="flex items-center gap-2">
+                <Trash2 className="h-14 w-20" /> Delete
+              </span>
+            </Button>
+          </div>
+        </div>
       </div>
 
       {/* Body */}
-      <CardContent className="space-y-2 p-4">
+      <CardContent className="space-y-3 px-1">
         <div className="flex items-center justify-between text-xs text-muted-foreground">
           <span>{created}</span>
           <span>
@@ -95,13 +85,9 @@ function Blog({
           </span>
         </div>
 
-        <h3 className="line-clamp-1 text-sm font-semibold tracking-tight">
-          {blog.title}
-        </h3>
+        <h3 className="text-[16px] font-medium">{blog.title}</h3>
 
-        <p className="line-clamp-2 text-xs text-muted-foreground/90">
-          {blog.excerpt}
-        </p>
+        <p className="line-clamp-2 text-sm text-[#62676C]">{blog.excerpt}</p>
       </CardContent>
     </Card>
   );
@@ -124,16 +110,15 @@ export default function BlogCard() {
   const onDelete = (id: string) => console.log("delete", id);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="mx-auto max-w-7xl py-4">
+      <div className="pb-4 lg:pb-6 flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-semibold tracking-tight">Blog List</h2>
-          <p className="text-sm text-muted-foreground">
-            Manage and edit your posts.
-          </p>
+          <h2 className="text-2xl font-semibold">Blog List</h2>
         </div>
-        <Button className="gap-2 rounded-xl">
-          <Plus className="h-4 w-4" />
+        <Button
+          className="bg-secondary cursor-pointer rounded-xl text-white"
+          size="lg"
+        >
           Create Blog
         </Button>
       </div>
