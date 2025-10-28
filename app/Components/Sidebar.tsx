@@ -35,7 +35,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Schedule Calendar",
-    href: "/user/schedule",
+    href: "/user/schedule-calender",
     icon: (p) => <CalendarClock {...p} />,
   },
   { label: "Blog", href: "/blog", icon: (p) => <PenSquare {...p} /> },
